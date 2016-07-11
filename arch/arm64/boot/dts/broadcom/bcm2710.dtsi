@@ -1,7 +1,7 @@
 #include "../../../../arm/boot/dts/bcm2708_common.dtsi"
 
 / {
-	compatible = "brcm,bcm2837";
+	compatible = "brcm,bcm2710";
 
 	soc {
 		ranges = <0x7e000000 0x3f000000 0x1000000>,

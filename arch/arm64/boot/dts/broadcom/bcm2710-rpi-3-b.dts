@@ -1,9 +1,9 @@
 /dts-v1/;
 
-#include "bcm2837.dtsi"
+#include "bcm2710.dtsi"
 
 / {
-	compatible = "brcm,bcm2837";
+	compatible = "brcm,bcm2710";
 	model = "Raspberry Pi 3 Model B";
 
 	memory {
