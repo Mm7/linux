@@ -167,7 +167,7 @@
 
 / {
 	chosen {
-		bootargs = "8250.nr_uarts=1";
+		bootargs = "console=ttyS0,115200 root=/dev/mmcblk0p2 rootfs=ext4 rootwait";
 	};
 };
 
