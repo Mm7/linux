@@ -74,15 +74,19 @@
 #undef ARM_LOCAL_GPU_INT_ROUTING
 #define ARM_LOCAL_GPU_INT_ROUTING 0x0c
 
+#ifdef CONFIG_FIQ
 #define REG_FIQ_CONTROL		0x0c
 #define REG_FIQ_ENABLE		0x80
 #define REG_FIQ_DISABLE		0
+#endif
 
 #define NR_BANKS		3
 #define IRQS_PER_BANK		32
 #define NUMBER_IRQS		MAKE_HWIRQ(NR_BANKS, 0)
+#ifdef CONFIG_FIQ
 #undef FIQ_START
 #define FIQ_START		(NR_IRQS_BANK0 + MAKE_HWIRQ(NR_BANKS - 1, 0))
+#endif
 
 static const int reg_pending[] __initconst = { 0x00, 0x04, 0x08 };
 static const int reg_enable[] __initconst = { 0x18, 0x10, 0x14 };
@@ -108,6 +112,7 @@ static void __exception_irq_entry bcm2835_handle_irq(
 	struct pt_regs *regs);
 static void bcm2836_chained_handle_irq(struct irq_desc *desc);
 
+#ifdef CONFIG_FIQ
 static inline unsigned int hwirq_to_fiq(unsigned long hwirq)
 {
 	hwirq -= NUMBER_IRQS;
@@ -122,18 +127,22 @@ static inline unsigned int hwirq_to_fiq(unsigned long hwirq)
 
 	return hwirq + 64;
 }
+#endif
 
 static void armctrl_mask_irq(struct irq_data *d)
 {
+#ifdef CONFIG_FIQ
 	if (d->hwirq >= NUMBER_IRQS)
 		writel_relaxed(REG_FIQ_DISABLE, intc.base + REG_FIQ_CONTROL);
 	else
+#endif
 		writel_relaxed(HWIRQ_BIT(d->hwirq),
 			       intc.disable[HWIRQ_BANK(d->hwirq)]);
 }
 
 static void armctrl_unmask_irq(struct irq_data *d)
 {
+#ifdef CONFIG_FIQ
 	if (d->hwirq >= NUMBER_IRQS) {
 		if (num_online_cpus() > 1) {
 			unsigned int data;
@@ -159,7 +168,9 @@ static void armctrl_unmask_irq(struct irq_data *d)
 
 		writel_relaxed(REG_FIQ_ENABLE | hwirq_to_fiq(d->hwirq),
 			       intc.base + REG_FIQ_CONTROL);
-	} else {
+	} else
+#endif
+    {
 		writel_relaxed(HWIRQ_BIT(d->hwirq),
 			       intc.enable[HWIRQ_BANK(d->hwirq)]);
 	}
@@ -209,8 +220,13 @@ static int __init armctrl_of_init(struct device_node *node,
 			node->full_name);
 
 	intc.base = base;
+#ifdef CONFIG_FIQ
 	intc.domain = irq_domain_add_linear(node, NUMBER_IRQS * 2,
 					    &armctrl_ops, NULL);
+#else
+	intc.domain = irq_domain_add_linear(node, NUMBER_IRQS,
+					    &armctrl_ops, NULL);
+#endif
 	if (!intc.domain)
 		panic("%s: unable to create IRQ domain\n", node->full_name);
 
@@ -249,6 +265,7 @@ static int __init armctrl_of_init(struct device_node *node,
 		}
 	}
 
+#ifdef CONFIG_FIQ
 	/* Make a duplicate irq range which is used to enable FIQ */
 	for (b = 0; b < NR_BANKS; b++) {
 		for (i = 0; i < bank_irqs[b]; i++) {
@@ -260,6 +277,7 @@ static int __init armctrl_of_init(struct device_node *node,
 		}
 	}
 	init_FIQ(FIQ_START);
+#endif
 
 	return 0;
 }
