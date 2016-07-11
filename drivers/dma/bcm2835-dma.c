@@ -412,7 +412,7 @@ static void bcm2835_dma_fill_cb_chain_with_sg(
 {
 	struct bcm2835_chan *c = to_bcm2835_dma_chan(chan);
 	size_t max_len = bcm2835_dma_max_frame_length(c);
-	unsigned int i, len;
+	size_t i, len;
 	dma_addr_t addr;
 	struct scatterlist *sgent;
 

@@ -8,6 +8,12 @@ config ARCH_BCM2710
 	select PINCTRL_BCM2835
 	select ARM_TIMER_SP804
 	select HAVE_ARM_ARCH_TIMER
+	select MAILBOX
+	select BCM2835_MBOX
+	select RASPBERRYPI_FIRMWARE
+	select FB_BCM2708
+	select DMA_BCM2835
+	select DMA_BCM2708
 	help
 	  This enables support for the Broadcom BCM2710 SoC.
 	  This SoC is used in the Raspberry Pi 3 device.
