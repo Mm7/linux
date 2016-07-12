@@ -23,6 +23,8 @@ config ARCH_BCM2710
 	select SETEND_EMULATION
 	select USB_DWC2
 	select USB_DWC2_HOST
+	select USB_USBNET
+	select USB_NET_SMSC95XX
 	help
 	  This enables support for the Broadcom BCM2710 SoC.
 	  This SoC is used in the Raspberry Pi 3 device.
