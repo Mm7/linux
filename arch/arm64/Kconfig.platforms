@@ -14,6 +14,13 @@ config ARCH_BCM2710
 	select FB_BCM2708
 	select DMA_BCM2835
 	select DMA_BCM2708
+	select MMC_BCM2835
+	select MMC_BCM2835_SDHOST
+	select MMC_BCM2835_DMA
+	select ARMV8_DEPRECATED
+	select SWP_EMULATION
+	select CP15_BARRIER_EMULATION
+	select SETEND_EMULATION
 	help
 	  This enables support for the Broadcom BCM2710 SoC.
 	  This SoC is used in the Raspberry Pi 3 device.
