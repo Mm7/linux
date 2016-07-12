@@ -165,6 +165,12 @@
 	hpd-gpios = <&gpio 46 GPIO_ACTIVE_LOW>;
 };
 
+&usb {
+    compatible = "brcm,bcm2835-usb";
+    reg = <0x7e980000 0x10000>;
+    interrupts = <1 9>;
+};
+
 / {
 	chosen {
 		bootargs = "console=ttyS0,115200 root=/dev/mmcblk0p2 rootfs=ext4 rootwait";
