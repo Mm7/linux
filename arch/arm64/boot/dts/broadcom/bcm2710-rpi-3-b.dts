@@ -171,6 +171,10 @@
     interrupts = <1 9>;
 };
 
+&watchdog {
+	status = "okay";
+};
+
 / {
 	chosen {
 		bootargs = "console=ttyS0,115200 root=/dev/mmcblk0p2 rootfs=ext4 rootwait";
