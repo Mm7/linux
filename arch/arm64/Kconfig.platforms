@@ -25,6 +25,12 @@ config ARCH_BCM2710
 	select USB_DWC2_HOST
 	select USB_USBNET
 	select USB_NET_SMSC95XX
+	select NETDEVICES
+	select WLAN
+	select CFG80211
+	select CFG80211_WEXT
+	select BRCMFMAC
+	select BRCMFMAC_USB
 	select WATCHDOG
 	select BCM2835_WDT
 	help
