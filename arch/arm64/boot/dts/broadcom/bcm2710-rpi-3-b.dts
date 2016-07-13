@@ -98,10 +98,14 @@
 };
 
 &uart0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart0_pins &bt_pins>;
 	status = "okay";
 };
 
 &uart1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart1_pins>;
 	status = "okay";
 };
 
@@ -177,7 +181,7 @@
 
 / {
 	chosen {
-		bootargs = "console=ttyS0,115200 root=/dev/mmcblk0p2 rootfs=ext4 rootwait";
+		bootargs = "8250.nr_uarts=1";
 	};
 };
 
@@ -185,6 +189,7 @@
 	__overrides__ {
 		uart0 = <&uart0>,"status";
 		uart0_clkrate = <&clk_uart0>,"clock-frequency:0";
+		uart1 = <&uart1>,"status";
 		i2s = <&i2s>,"status";
 		spi = <&spi0>,"status";
 		i2c0 = <&i2c0>,"status";
