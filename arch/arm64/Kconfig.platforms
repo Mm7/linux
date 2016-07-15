@@ -33,6 +33,9 @@ config ARCH_BCM2710
 	select BRCMFMAC_USB
 	select WATCHDOG
 	select BCM2835_WDT
+	select RASPBERRYPI_POWER
+	select BRCM_CHAR_DRIVERS
+	select HW_RANDOM
 	help
 	  This enables support for the Broadcom BCM2710 SoC.
 	  This SoC is used in the Raspberry Pi 3 device.
