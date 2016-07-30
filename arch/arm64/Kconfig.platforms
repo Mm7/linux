@@ -36,6 +36,11 @@ config ARCH_BCM2710
 	select RASPBERRYPI_POWER
 	select BRCM_CHAR_DRIVERS
 	select HW_RANDOM
+	select THERMAL
+	select CPU_FREQ
+	select CPU_FREQ_GOV_ONDEMAND
+	select CPU_FREQ_DEFAULT_GOV_ONDEMAND
+	select THERMAL_BCM2835
 	help
 	  This enables support for the Broadcom BCM2710 SoC.
 	  This SoC is used in the Raspberry Pi 3 device.
