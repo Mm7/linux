@@ -53,6 +53,9 @@
 #include <linux/mfd/syscon.h>
 #include <linux/regmap.h>
 
+#ifndef CONFIG_ARM64
+#include <asm/mach/irq.h>
+#endif
 #include <asm/exception.h>
 
 /* Put the bank and irq (32 bits) into the hwirq */
