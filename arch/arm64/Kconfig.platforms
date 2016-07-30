@@ -41,6 +41,9 @@ config ARCH_BCM2710
 	select CPU_FREQ_GOV_ONDEMAND
 	select CPU_FREQ_DEFAULT_GOV_ONDEMAND
 	select THERMAL_BCM2835
+	select BT
+	select BT_HCIUART
+	select BT_HCIUART_BCM
 	help
 	  This enables support for the Broadcom BCM2710 SoC.
 	  This SoC is used in the Raspberry Pi 3 device.
